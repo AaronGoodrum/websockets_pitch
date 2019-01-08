@@ -5,19 +5,25 @@ import { connect } from 'react-redux';
 import {
   getCurrentPot,
   sendNameToServer,
+  sendIDToServer,
   sendPitchInToServer,
   sendGetOneToServer
 } from './socket';
-import { getAName } from './usernames';
+import { getAName, getAID } from './usernames';
 import SnackBarNotif from './SnackbarNotif';
+import SendMessageForm from './components/SendMessageForm'
 
 class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     const name = getAName();
+    const id = getAID()
     getCurrentPot(dispatch);
     dispatch({ type: 'ASSIGNED_USERNAME', name });
+    dispatch({ type: 'ASSIGNED_USERNAMEID', id})
     sendNameToServer(name);
+    sendIDToServer(id);
+    console.log(id)
   }
 
   closeSnackbar = () => this.props.dispatch({ type: 'ANOTHER_ONE_PITCHED_IN' });
@@ -31,11 +37,12 @@ class App extends Component {
   pitchIn = () => {
     const { dispatch, name } = this.props;
     dispatch({ type: 'PITCH_IN' });
-    sendPitchInToServer(name);
+    sendPitchInToServer(name); 
   };
 
   render() {
     const {
+      id,
       pot,
       name,
       names,
@@ -44,17 +51,19 @@ class App extends Component {
       whoDidIt
     } = this.props;
     return (
+      <div>
+      <SendMessageForm />
       <Grid container justify="center">
         <Grid style={{ textAlign: 'center' }} item xs={12}>
           <h1>{pot}</h1>
         </Grid>
         <Grid style={{ textAlign: 'right', padding: '10px' }} item xs={6}>
-          <Button onClick={this.pitchIn} variant="raised" color="primary">
+          <Button onClick={this.pitchIn} variant="contained" color="primary">
             pitch in!
           </Button>
         </Grid>
         <Grid style={{ textAlign: 'left', padding: '10px' }} item xs={6}>
-          <Button onClick={this.getOne} variant="raised" color="secondary">
+          <Button onClick={this.getOne} variant="contained" color="secondary">
             get one!
           </Button>
         </Grid>
@@ -71,6 +80,9 @@ class App extends Component {
             Your assigned username is{' '}
             <span style={{ color: 'red' }}>{name}</span>
             <div style={{ padding: '10px' }}>
+            Your assigned username id{' '}
+            <span style={{ color: 'red' }}>{id}</span>
+            <div style={{ padding: '10px' }}></div>
               Other members:
               {names.length <= 1 ? (
                 <div style={{ color: 'red' }}>No other members yet</div>
@@ -94,11 +106,13 @@ class App extends Component {
           snackbarIsOpen={snackbarIsOpen}
         />
       </Grid>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
+  id: state.id,
   pot: state.pot,
   name: state.name,
   names: state.names,

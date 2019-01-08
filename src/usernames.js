@@ -3,3 +3,5 @@ import Chance from 'chance';
 const nameGetter = new Chance();
 
 export const getAName = () => nameGetter.first();
+
+export const getAID = () => nameGetter.apple_token();
