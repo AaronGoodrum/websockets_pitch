@@ -27,6 +27,9 @@ export const getCurrentPot = () => socket.emit('GET_CURRENT_POT');
 export const sendNameToServer = name =>
   socket.emit('SEND_NAME_TO_SERVER', name);
 
+  export const sendIDToServer = id =>
+  socket.emit('SEND_ID_TO_SERVER', id, console.log(id));
+
 export const sendPitchInToServer = name =>
   socket.emit('SOMEONE_PITCHED_IN', name);
 

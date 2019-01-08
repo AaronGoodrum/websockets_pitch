@@ -2,6 +2,7 @@ import { socket } from './index';
 
 const reducer = (
   state = {
+    id: null,
     pot: 0,
     snackbarIsOpen: false,
     name: null,
@@ -28,6 +29,9 @@ const reducer = (
       break;
     case 'ASSIGNED_USERNAME':
       state = { ...state, name: action.name };
+      break;
+      case 'ASSIGNED_USERNAMEID':
+      state = { ...state, id: action.id };
       break;
     case 'PUT_ALL_NAMES_TO_REDUCER':
       state = { ...state, names: action.names };
