@@ -9,7 +9,6 @@ class SendMessageForm extends React.Component {
           id="standard-with-placeholder"
           label="Chatting"
           placeholder="Hello There"
-          margin="normal"
         />
       </form>
     )
