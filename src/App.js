@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Chatkit from '@pusher/chatkit'
 import '../src/style.css'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -16,6 +17,9 @@ import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 import NewRoomForm from './components/NewRoomForm'
+import DUMMY_DATA from './components/DUMMY_DATA'
+
+import { tokenUrl, instanceLocator } from './config'
 
 class App extends Component {
 
@@ -35,7 +39,7 @@ class App extends Component {
 
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
-      instanceLocator,
+      instanceLocator: instanceLocator,
       userId: 'perborgen',
       tokenProvider: new Chatkit.TokenProvider({
           url: tokenUrl
