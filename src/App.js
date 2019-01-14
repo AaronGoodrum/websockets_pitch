@@ -124,7 +124,7 @@ createRoom(name) {
   pitchIn = () => {
     const { dispatch, name } = this.props;
     dispatch({ type: 'PITCH_IN' });
-    sendPitchInToServer(name);
+    sendPitchInToServer(name); 
   };
 
   render() {
